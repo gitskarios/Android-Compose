@@ -1,12 +1,11 @@
 buildscript {
-    ext.kotlin_version = "1.4.10"
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0-alpha15"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:${AndroidSdk.androidGradlePlugin}"
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
     }
 }
 
@@ -14,6 +13,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url = "https://dl.bintray.com/ekito/koin" }
         maven { url 'https://jitpack.io' }
     }
 }
