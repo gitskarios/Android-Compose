@@ -1,35 +1,42 @@
 package com.alorma.gitskarios.ui
 
+import androidx.annotation.AttrRes
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
-
-private val DarkColorPalette = darkColors(
-        primary = black,
-        primaryVariant = black,
-        secondary = accentDark
-)
-
-private val LightColorPalette = lightColors(
-        primary = black,
-        primaryVariant = black,
-        secondary = accentLight
-)
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ContextAmbient
+import com.alorma.gitskarios.R
+import com.google.android.material.color.MaterialColors
 
 @Composable
 fun GitskariosTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
-        DarkColorPalette
+        darkColors(
+            primary = getColorFromAndroidTheme(R.attr.colorPrimary),
+            primaryVariant = getColorFromAndroidTheme(R.attr.colorPrimaryVariant),
+            secondary = getColorFromAndroidTheme(R.attr.colorSecondary),
+        )
     } else {
-        LightColorPalette
+        lightColors(
+            primary = getColorFromAndroidTheme(R.attr.colorPrimary),
+            primaryVariant = getColorFromAndroidTheme(R.attr.colorPrimaryVariant),
+            secondary = getColorFromAndroidTheme(R.attr.colorSecondary),
+        )
     }
 
     MaterialTheme(
-            colors = colors,
-            typography = typography,
-            shapes = shapes,
-            content = content
+        colors = colors,
+        typography = typography,
+        shapes = shapes,
+        content = content
     )
+}
+
+@Composable
+private fun getColorFromAndroidTheme(@AttrRes attrRes: Int): Color {
+    val color = MaterialColors.getColor(ContextAmbient.current, attrRes, "GitskariosTheme")
+    return Color(color)
 }
