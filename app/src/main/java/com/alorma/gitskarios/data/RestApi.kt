@@ -1,17 +1,14 @@
 package com.alorma.gitskarios.data
 
 import com.alorma.gitskarios.data.model.GithubNotificationApiModel
-import com.alorma.gitskarios.data.model.GithubUserApiModel
-import io.ktor.client.*
-import io.ktor.client.request.*
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
 
 class RestApi(private val httpClient: HttpClient) {
 
-    suspend fun loadUser(): GithubUserApiModel {
-        return httpClient.get("/user")
-    }
-
-    suspend fun loadNotifications(): List<GithubNotificationApiModel> {
-        return httpClient.get("/notifications")
-    }
+    suspend fun loadNotifications(): List<GithubNotificationApiModel> =
+        httpClient.get("/notifications") {
+            parameter("all", "true")
+        }
 }

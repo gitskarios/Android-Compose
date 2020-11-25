@@ -2,8 +2,7 @@ package com.alorma.gitskarios.screen.notifications
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alorma.gitskarios.data.RestApi
-import com.alorma.gitskarios.screen.model.GithubUser
+import com.alorma.gitskarios.domain.ObtainUserNotificationsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -11,7 +10,7 @@ import org.koin.core.context.GlobalContext
 
 class NotificationsViewModel() : ViewModel() {
 
-    private val restApi: RestApi by GlobalContext.get().inject()
+    private val obtainUserNotificationsUseCase: ObtainUserNotificationsUseCase by GlobalContext.get().inject()
 
     private val _userState: MutableStateFlow<NotificationsState> = MutableStateFlow(
         NotificationsState.Loading
@@ -20,12 +19,10 @@ class NotificationsViewModel() : ViewModel() {
 
     fun load() {
         viewModelScope.launch {
-            val user = restApi.loadUser()
-            val events = restApi.loadNotifications()
+            val events = obtainUserNotificationsUseCase.loadNotifications()
 
             _userState.value = NotificationsState.Data(
-                user = GithubUser(user.login),
-                events = events.map { it.subject.title }
+                events = events
             )
         }
     }

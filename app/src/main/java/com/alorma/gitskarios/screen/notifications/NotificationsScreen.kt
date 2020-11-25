@@ -1,12 +1,11 @@
 package com.alorma.gitskarios.screen.notifications
 
-import androidx.compose.foundation.Text
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumnForIndexed
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
@@ -14,15 +13,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.onActive
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
 import com.alorma.drawer_base.DebugDrawerLayout
+import com.alorma.drawer_base.compositeOverSurface
 import com.alorma.drawer_modules.BuildModule
 import com.alorma.drawer_modules.DeviceModule
 import com.alorma.gitskarios.BuildConfig
 import com.alorma.gitskarios.R
+import com.alorma.gitskarios.composables.NotificationItem
 import com.alorma.gitskarios.composables.topBar
-import com.alorma.gitskarios.screen.model.GithubUser
+import com.alorma.gitskarios.screen.model.GithubNotificationItem
 import com.alorma.gitskarios.ui.GitskariosTheme
 
 @Composable
@@ -67,13 +69,14 @@ fun notificationsLoading() {
 
 @Composable
 fun notificationsData(data: NotificationsState.Data) {
-    Column(
+    LazyColumnForIndexed(
+        items = data.events,
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(text = data.user.login)
-        LazyColumnFor(items = data.events) {
-            Text(text = it)
+    ) { index, notification ->
+        NotificationItem(notification)
+        if (index < data.events.size - 1) {
+            Divider(color = MaterialTheme.colors.surface)
         }
     }
 }
@@ -90,8 +93,19 @@ fun NotificationsLoadingPreview() {
 @Composable
 fun NotificationsDataPreview() {
     GitskariosTheme {
-        val user = GithubUser("alorma")
-        val data = NotificationsState.Data(user, listOf("A", "B"))
+        val notification = GithubNotificationItem(
+            id = "{abc}",
+            read = true,
+            origin = "user/repo #883",
+            subject = "Hello dolly",
+            reason = "subscribed",
+        )
+        val data = NotificationsState.Data(
+            listOf(
+                notification.copy(read = false),
+                notification
+            )
+        )
         notificationsData(data = data)
     }
 }

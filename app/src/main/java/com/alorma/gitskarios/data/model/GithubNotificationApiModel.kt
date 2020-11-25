@@ -7,11 +7,17 @@ data class GithubNotificationApiModel(
     val id: String,
     @SerializedName("unread")
     val unread: Boolean,
+    @SerializedName("repository")
+    val repository: GithubRepositoryApiModel,
     @SerializedName("subject")
-    val subject: GithubNotificationSubjectApiModel
+    val subject: GithubNotificationSubjectApiModel,
+    @SerializedName("reason")
+    val reason: String
 )
 
 data class GithubNotificationSubjectApiModel(
     @SerializedName("title")
-    val title: String
+    val title: String,
+    @SerializedName("url")
+    val url: String
 )

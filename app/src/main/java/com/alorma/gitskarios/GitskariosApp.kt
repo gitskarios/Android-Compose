@@ -2,6 +2,7 @@ package com.alorma.gitskarios
 
 import android.app.Application
 import com.alorma.gitskarios.di.NetworkModule
+import com.alorma.gitskarios.di.UseCaseModule
 import com.alorma.gitskarios.di.ViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -18,6 +19,7 @@ class GitskariosApp: Application() {
             androidContext(this@GitskariosApp)
             modules(
                 NetworkModule(),
+                UseCaseModule(),
                 ViewModelModule()
             )
         }
