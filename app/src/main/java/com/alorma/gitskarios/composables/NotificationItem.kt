@@ -5,15 +5,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.preferredHeight
-import androidx.compose.foundation.layout.preferredSize
 import androidx.compose.material.AmbientEmphasisLevels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideEmphasis
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,14 +37,14 @@ fun NotificationItem(notification: GithubNotificationItem) {
     } else {
         MaterialTheme.colors.surface
     }
-
-    Row(
-        modifier = Modifier.fillMaxWidth()
-            .background(color)
-            .clickable(onClick = {})
-            .padding(8.dp)
+    Surface(
+        color = color
     ) {
-        Column {
+        Column(
+            modifier = Modifier.fillMaxWidth()
+                .clickable(onClick = {})
+                .padding(8.dp)
+        ) {
             ProvideEmphasis(emphasis = AmbientEmphasisLevels.current.medium) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),

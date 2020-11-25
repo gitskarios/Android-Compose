@@ -39,7 +39,9 @@ object NetworkModule {
                     url {
                         protocol = URLProtocol.HTTPS
                         host = BuildConfig.GH_HOST
-                        path("api", "v3", encodedPath)
+                        if (encodedPath.startsWith("/api/v3").not()) {
+                            path("api", "v3", encodedPath)
+                        }
                     }
                 }
             }

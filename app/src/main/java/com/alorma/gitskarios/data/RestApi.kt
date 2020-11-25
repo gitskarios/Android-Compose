@@ -7,8 +7,8 @@ import io.ktor.client.request.parameter
 
 class RestApi(private val httpClient: HttpClient) {
 
-    suspend fun loadNotifications(): List<GithubNotificationApiModel> =
+    suspend fun loadNotifications(all: Boolean = false): List<GithubNotificationApiModel> =
         httpClient.get("/notifications") {
-            parameter("all", "true")
+            parameter("all", all.toString())
         }
 }
