@@ -9,6 +9,7 @@ import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
+import io.ktor.http.*
 import okhttp3.Interceptor
 import org.koin.dsl.module
 
@@ -35,6 +36,11 @@ object NetworkModule {
                 }
                 defaultRequest {
                     header("Authorization", "token ${BuildConfig.GH_TOKEN}")
+                    url {
+                        protocol = URLProtocol.HTTPS
+                        host = BuildConfig.GH_HOST
+                        path("api", "v3", encodedPath)
+                    }
                 }
             }
         }

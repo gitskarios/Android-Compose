@@ -21,7 +21,12 @@ class NotificationsViewModel() : ViewModel() {
     fun load() {
         viewModelScope.launch {
             val user = restApi.loadUser()
-            _userState.value = NotificationsState.Data(GithubUser(user.login))
+            val events = restApi.loadNotifications()
+
+            _userState.value = NotificationsState.Data(
+                user = GithubUser(user.login),
+                events = events.map { it.subject.title }
+            )
         }
     }
 }

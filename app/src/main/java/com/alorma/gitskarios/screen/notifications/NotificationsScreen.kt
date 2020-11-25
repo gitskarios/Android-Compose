@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumnFor
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -69,9 +70,11 @@ fun notificationsData(data: NotificationsState.Data) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
     ) {
         Text(text = data.user.login)
+        LazyColumnFor(items = data.events) {
+            Text(text = it)
+        }
     }
 }
 
@@ -88,7 +91,7 @@ fun NotificationsLoadingPreview() {
 fun NotificationsDataPreview() {
     GitskariosTheme {
         val user = GithubUser("alorma")
-        val data = NotificationsState.Data(user)
+        val data = NotificationsState.Data(user, listOf("A", "B"))
         notificationsData(data = data)
     }
 }
