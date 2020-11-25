@@ -10,7 +10,6 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import okhttp3.Interceptor
 import org.koin.dsl.module
 
 object NetworkModule {
@@ -20,9 +19,6 @@ object NetworkModule {
 
         single<HttpClient> {
             HttpClient(OkHttp) {
-                engine {
-                    getAll<Interceptor>().forEach { addInterceptor(it) }
-                }
                 install(JsonFeature) {
                     serializer = GsonSerializer()
                 }
