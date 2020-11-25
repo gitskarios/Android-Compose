@@ -6,6 +6,11 @@ object Versions {
     const val junit = "4.13"
 
     const val debugDrawer = "0.1.0-beta-04"
+
+    const val viewModel = "2.2.0"
+    const val koin = "2.2.1"
+    const val ktor = "1.4.0"
+    const val okHttp = "4.9.0"
 }
 
 object AndroidSdk {

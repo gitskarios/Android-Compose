@@ -4,6 +4,7 @@ plugins {
 }
 
 apply(from = "../build.properties")
+val GH_HOST = extra["github_url"].toString()
 val GH_TOKEN = extra["github_token"].toString()
 
 android {
@@ -19,6 +20,7 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField("String", "GH_HOST", "\"$GH_HOST\"")
         buildConfigField("String", "GH_TOKEN", "\"$GH_TOKEN\"")
     }
 
@@ -73,12 +75,27 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.2.0")
     implementation("com.google.android.material:material:1.2.1")
 
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.viewModel}")
+
+    implementation("org.koin:koin-android:${Versions.koin}")
+    implementation("org.koin:koin-androidx-scope:${Versions.koin}")
+    implementation("org.koin:koin-androidx-viewmodel:${Versions.koin}")
+    implementation("org.koin:koin-androidx-fragment:${Versions.koin}")
+
+
+    implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
+    implementation("io.ktor:ktor-client-gson:${Versions.ktor}")
+    implementation("io.ktor:ktor-client-logging-jvm:${Versions.ktor}")
+
     implementation("androidx.compose.ui:ui:${Versions.compose}")
     implementation("androidx.ui:ui-tooling:${Versions.compose}")
     implementation("androidx.compose.foundation:foundation:${Versions.compose}")
     implementation("androidx.compose.material:material:${Versions.compose}")
     implementation("androidx.compose.material:material-icons-core:${Versions.compose}")
     implementation("androidx.compose.material:material-icons-extended:${Versions.compose}")
+
+    implementation("com.squareup.okhttp3:okhttp:${Versions.okHttp}")
+    implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01")
 
