@@ -35,6 +35,7 @@ object NetworkModule {
                 }
                 defaultRequest {
                     header("Authorization", "token ${BuildConfig.GH_TOKEN}")
+                    header("Accept", "application/vnd.github.v3+json")
                     url {
                         protocol = URLProtocol.HTTPS
                         host = BuildConfig.GH_HOST
