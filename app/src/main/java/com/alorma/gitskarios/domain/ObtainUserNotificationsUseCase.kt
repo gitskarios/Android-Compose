@@ -6,7 +6,7 @@ import com.alorma.gitskarios.screen.model.GithubNotificationItem
 class ObtainUserNotificationsUseCase(private val restApi: RestApi) {
 
     suspend fun loadNotifications(): List<GithubNotificationItem> {
-        return restApi.loadNotifications().sortedBy { it.unread }.map { notification ->
+        return restApi.loadNotifications().sortedByDescending { it.unread }.map { notification ->
             GithubNotificationItem(
                 id = notification.id,
                 read = !notification.unread,
