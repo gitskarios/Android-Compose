@@ -1,10 +1,18 @@
 package com.alorma.gitskarios.screen.notifications
 
 import androidx.compose.foundation.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.onActive
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
 import com.alorma.drawer_base.DebugDrawerLayout
@@ -13,6 +21,7 @@ import com.alorma.drawer_modules.DeviceModule
 import com.alorma.gitskarios.BuildConfig
 import com.alorma.gitskarios.R
 import com.alorma.gitskarios.composables.topBar
+import com.alorma.gitskarios.screen.model.GithubUser
 import com.alorma.gitskarios.ui.GitskariosTheme
 
 @Composable
@@ -45,18 +54,41 @@ fun NotificationsScreen(
 
 @Composable
 fun notificationsLoading() {
-    Text(text = "Loading")
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        alignment = Alignment.Center,
+    ) {
+        CircularProgressIndicator(
+            color = MaterialTheme.colors.secondary
+        )
+    }
 }
 
 @Composable
 fun notificationsData(data: NotificationsState.Data) {
-    Text(text = data.user.login)
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(text = data.user.login)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun NotificationsScreenPreview() {
+fun NotificationsLoadingPreview() {
     GitskariosTheme {
-        NotificationsScreen()
+        notificationsLoading()
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NotificationsDataPreview() {
+    GitskariosTheme {
+        val user = GithubUser("alorma")
+        val data = NotificationsState.Data(user)
+        notificationsData(data = data)
     }
 }
