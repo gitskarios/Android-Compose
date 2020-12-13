@@ -8,7 +8,7 @@ object ViewModelModule {
 
     operator fun invoke() = module {
         viewModel {
-            NotificationsViewModel()
+            NotificationsViewModel(get())
         }
     }
 }

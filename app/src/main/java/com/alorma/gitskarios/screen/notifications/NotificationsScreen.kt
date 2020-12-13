@@ -12,42 +12,31 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.onActive
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.viewinterop.viewModel
 import androidx.ui.tooling.preview.Preview
-import com.alorma.drawer_base.DebugDrawerLayout
-import com.alorma.drawer_modules.BuildModule
-import com.alorma.drawer_modules.DeviceModule
-import com.alorma.gitskarios.BuildConfig
 import com.alorma.gitskarios.R
 import com.alorma.gitskarios.composables.NotificationItem
 import com.alorma.gitskarios.composables.topBar
 import com.alorma.gitskarios.screen.model.GithubNotificationItem
 import com.alorma.gitskarios.ui.GitskariosTheme
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun NotificationsScreen(
-    notificationsViewModel: NotificationsViewModel = viewModel(),
+    notificationsViewModel: NotificationsViewModel = getViewModel(),
 ) {
-    DebugDrawerLayout(
-        isDebug = { BuildConfig.DEBUG },
-        drawerModules = {
-            listOf(DeviceModule(), BuildModule())
-        }
+    Scaffold(
+        topBar = {
+            topBar(stringRes = R.string.screen_title_notifications)
+        },
     ) {
-        Scaffold(
-            topBar = {
-                topBar(stringRes = R.string.screen_title_notifications)
-            },
-        ) {
-            onActive {
-                notificationsViewModel.load()
-            }
-            val state = notificationsViewModel.userState.collectAsState()
+        onActive {
+            notificationsViewModel.load()
+        }
+        val state = notificationsViewModel.userState.collectAsState()
 
-            when (val value = state.value) {
-                NotificationsState.Loading -> notificationsLoading()
-                is NotificationsState.Data -> notificationsData(data = value)
-            }
+        when (val value = state.value) {
+            NotificationsState.Loading -> notificationsLoading()
+            is NotificationsState.Data -> notificationsData(data = value)
         }
     }
 }

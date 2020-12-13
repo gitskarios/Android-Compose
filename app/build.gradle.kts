@@ -45,9 +45,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    packagingOptions {
-        exclude("META-INF/*.kotlin_module")
-    }
 
     kotlinOptions {
         jvmTarget = "1.8"
@@ -81,7 +78,8 @@ dependencies {
     implementation("org.koin:koin-androidx-scope:${Versions.koin}")
     implementation("org.koin:koin-androidx-viewmodel:${Versions.koin}")
     implementation("org.koin:koin-androidx-fragment:${Versions.koin}")
-
+    implementation("org.koin:koin-androidx-compose:${Versions.koin}")
+    implementation("org.koin:koin-androidx-ext:${Versions.koin}")
 
     implementation("io.ktor:ktor-client-okhttp:${Versions.ktor}")
     implementation("io.ktor:ktor-client-gson:${Versions.ktor}")
@@ -98,9 +96,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:${Versions.okHttp}")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-beta01")
-
-    implementation("com.github.alorma.Compose-Debug-Drawer:drawer-base:${Versions.debugDrawer}")
-    implementation("com.github.alorma.Compose-Debug-Drawer:drawer-modules:${Versions.debugDrawer}")
 
     testImplementation("junit:junit:${Versions.junit}")
 }

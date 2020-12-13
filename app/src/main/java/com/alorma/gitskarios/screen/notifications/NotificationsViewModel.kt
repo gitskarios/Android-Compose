@@ -6,11 +6,11 @@ import com.alorma.gitskarios.domain.ObtainUserNotificationsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.koin.core.context.GlobalContext
 
-class NotificationsViewModel() : ViewModel() {
-
-    private val obtainUserNotificationsUseCase: ObtainUserNotificationsUseCase by GlobalContext.get().inject()
+class NotificationsViewModel(
+    private val obtainUserNotificationsUseCase: ObtainUserNotificationsUseCase,
+) :
+    ViewModel() {
 
     private val _userState: MutableStateFlow<NotificationsState> = MutableStateFlow(
         NotificationsState.Loading

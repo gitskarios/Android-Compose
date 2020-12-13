@@ -1,5 +1,5 @@
 object Versions {
-    const val kotlin = "1.4.10"
+    const val kotlin = "1.4.21"
     const val compose = "1.0.0-alpha06"
     const val accompanist = "0.3.3.1"
 
@@ -18,5 +18,5 @@ object AndroidSdk {
     const val compile = 30
     const val target = compile
 
-    const val androidGradlePlugin = "4.2.0-alpha16"
+    const val androidGradlePlugin = "7.0.0-alpha02"
 }
